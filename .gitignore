@@ -1,41 +1,128 @@
-## .NET build output
-bin/
-obj/
-*.user
-*.suo
+# =============================================================================
+# BMAD Framework - Smart .gitignore for C# Consultant Use
+# =============================================================================
+# This framework is designed to be dropped alongside a client's .NET solution.
+# The rules below ensure:
+#   ✅ Framework structure files are KEPT (agents, templates, config, shims)
+#   ❌ Generated BMAD output files are IGNORED (PRDs, BA reviews, architecture docs)
+#   ❌ Client project artifacts are IGNORED (build outputs, secrets, etc.)
+# =============================================================================
 
-## Output della demo BMAD
+# -----------------------------------------------------------------------------
+# BMAD OUTPUT FILES — Ignore generated artifacts in .bmad/
+# (These are created during a project engagement and should NOT be committed
+#  to the client's repo. Add them to your own private notes/storage.)
+# -----------------------------------------------------------------------------
+.bmad/*.md
+.bmad/output/
 output/
 
-## Configurazione locale con segreti (NON committare API keys!)
-**/appsettings.local.json
-**/appsettings.Development.json
+# But KEEP the framework config and templates
+!.bmad/config/
+!.bmad/config/**
+!.bmad/templates/
+!.bmad/templates/**
 
-## Visual Studio
+# -----------------------------------------------------------------------------
+# .NET / C# BUILD ARTIFACTS
+# -----------------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.vs/
 .vs/
-*.vsidx
+[Pp]ublish/
+[Pp]ublish[Oo]utput/
+[Pp]ublic[Oo]utput/
+[Rr]elease/
+[Rr]eleases/
+[Xx]64/
+[Xx]86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+msbuild.log
+msbuild.err
+msbuild.wrn
 
-## Rider
-.idea/
-
-## OS
-.DS_Store
-Thumbs.db
-
-## NuGet
+# NuGet
 *.nupkg
 *.snupkg
+*.nuget.props
+*.nuget.targets
 packages/
-project.lock.json
-project.fragment.lock.json
+!**/[Pp]ackages/repositories.config
 artifacts/
 
-## Test results
+# MSTest
 TestResults/
-test-results/
-coverage.xml
+[Tt]est[Rr]esult*/
 *.trx
+*.coverage
+*.coveragexml
 
-## Logs
+# Rider
+.idea/
+*.sln.iml
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# -----------------------------------------------------------------------------
+# SECRETS & CONFIGURATION
+# -----------------------------------------------------------------------------
+appsettings.*.json
+!appsettings.json
+secrets.json
+local.settings.json
+*.pfx
+*.p12
+*.env
+.env
+.env.*
+*.key
+*.pem
+
+# Azure
+.azure/
+azuredeploy.parameters.*.json
+
+# -----------------------------------------------------------------------------
+# NODE / FRONTEND (if client project has frontend)
+# -----------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+.next/
+.nuxt/
+.cache/
+
+# -----------------------------------------------------------------------------
+# IDE & OS FILES
+# -----------------------------------------------------------------------------
+.vscode/settings.json
+.vscode/launch.json
+.vscode/*.code-workspace
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.swp
+*.swo
+
+# -----------------------------------------------------------------------------
+# LOGS & TEMPORARY
+# -----------------------------------------------------------------------------
 *.log
 logs/
+tmp/
+temp/

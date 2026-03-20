@@ -1,0 +1,124 @@
+# BMAD Framework Settings
+# Breakthrough Method of Agile AI-Driven Development
+# Configuration for Enterprise Workflow and Fast Kit
+
+# =============================================================================
+# QUALITY GATE THRESHOLDS
+# =============================================================================
+
+# AI Ready Gate (Phase B — BA Review)
+aiReadyThreshold: 90
+
+# Coverage thresholds (Phase F — Implementation / Phase G — QA)
+coverageThresholds:
+  line: 70
+  branch: 70
+
+# CI pipeline check
+ci:
+  pipelinesConfigured: false
+
+# =============================================================================
+# BA REVIEW SCORING WEIGHTS (must sum to 100)
+# =============================================================================
+baReviewWeights:
+  clarity: 15              # Requirements are clear and unambiguous
+  completeness: 20         # All scenarios and edge cases covered
+  testability: 15          # Requirements can be validated with tests
+  consistency: 10          # No contradictions between requirements
+  businessValue: 5         # Clear business value articulated
+  enterpriseGovernance: 15 # Compliance, security, GDPR considerations
+  integrationClarity: 10   # Integration points clearly defined
+  costTransparency: 5      # Cost implications documented
+  riskCoverage: 5          # Risks identified and mitigation proposed
+
+# =============================================================================
+# PLAN APPROVED GATE — Architecture Review Criteria
+# =============================================================================
+planApprovedCriteria:
+  architectureDecisionsDocumented: true
+  nonFunctionalRequirementsAddressed: true
+  securityReviewCompleted: true
+  performanceBenchmarksDefined: true
+  adrsCreated: true
+
+# =============================================================================
+# ATDD GATE — Before implementation
+# =============================================================================
+atddCriteria:
+  acceptanceTestsDefined: true
+  testScenariosCoverAllStories: true
+  integrationTestsPlanned: true
+
+# =============================================================================
+# QUALITY GATE — After QA Phase
+# =============================================================================
+qualityCriteria:
+  unitTestsPassing: true
+  integrationTestsPassing: true
+  coverageMet: true
+  codeReviewCompleted: true
+  staticAnalysisPassing: true
+
+# =============================================================================
+# FAST KIT — Model Routing
+# =============================================================================
+modelRouting:
+  planning:
+    complex: claude-opus          # Complex architecture, strategic decisions
+    simple: claude-sonnet         # Standard planning, sprint breakdown
+  implementation:
+    core: claude-sonnet           # Core business logic implementation
+    simple: gpt-4.1               # Boilerplate, CRUD, simple utilities
+    refactoring: claude-sonnet    # Refactoring and code review
+  review:
+    security: claude-opus         # Security reviews
+    standard: claude-sonnet       # Standard code reviews
+
+# =============================================================================
+# WORKFLOW CONFIGURATION
+# =============================================================================
+workflow:
+  # Enterprise: manual gates with human checkpoints
+  enterprise:
+    mode: guided
+    humanCheckpoints:
+      - AI_READY          # After Phase B (BA Review)
+      - PLAN_APPROVED     # After Phase D (Architecture)
+      - ATDD              # After test definition, before implementation
+      - QUALITY           # After Phase G (QA Testing)
+    gateEvaluation: manual
+
+  # Fast Kit: fully agentic with single human checkpoint
+  fast:
+    mode: fully-agentic
+    humanCheckpoints:
+      - PLAN_APPROVED     # Only checkpoint: architecture approval
+    autoRework:
+      enabled: true
+      maxRetries: 3
+      retryStrategy: refine-and-resubmit
+    gateEvaluation: automatic
+    autoHandoff: true
+
+# =============================================================================
+# .NET / C# SPECIFIC SETTINGS
+# =============================================================================
+dotnet:
+  targetFramework: net8.0
+  testFramework: xunit
+  architecture: clean-architecture
+  patterns:
+    - ddd                 # Domain-Driven Design
+    - cqrs                # Command Query Responsibility Segregation
+    - repository          # Repository pattern
+    - mediator            # MediatR
+  codeAnalysis:
+    enabled: true
+    ruleset: StyleCop
+    nullability: enable
+  deployment:
+    azure:
+      appService: true
+      containerApps: false
+      functions: false
